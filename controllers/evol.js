@@ -26,6 +26,7 @@ function generateRandomGene(type){
 
 evol.generateRandomIndividual = () => {
     return {
+        mark: null,
         tempo: generateRandomGene("tempo"),
         melody: {
             baseOctave: generateRandomGene("melodyBaseOctave"),
@@ -165,7 +166,7 @@ function mutate(i){
 evol.evaluateIndividual = (i, mark) => {
     let newIndividual = i
 
-    newIndividual.mark = mark
+    newIndividual.mark = parseInt(mark)
 
     return newIndividual
 }
@@ -178,7 +179,27 @@ function sortPopulation(pop){
     })
 }
 
-evol.evoluate = (pop) => {
+evol.getNextToEvaluate = pop => {
+    for (let i = 0; i < pop.length; i++){
+        if (pop[i].mark == null){
+            return i;
+        }
+    }
+
+    return -1;
+}
+
+evol.isFullyEvaluated = pop => {
+    for (let i = 0; i < pop.length; i++){
+        if (pop[i].mark == null){
+            return false;
+        }
+    }
+
+    return true;
+}
+
+evol.evolve = (pop) => {
     let newPop = []
     let count = pop.length
 

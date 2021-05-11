@@ -1,19 +1,19 @@
 const path = require("path")
 const fs = require("fs")
 
-const genomePath = "genome.json"
+const popPath = "pop.json"
 
 let helper = {}
 
-helper.save = (genome, generation) => {
-    fs.writeFileSync(path.join(global.rootDir, genomePath), JSON.stringify({
-        genome: genome,
+helper.save = (pop, generation) => {
+    fs.writeFileSync(path.join(global.rootDir, popPath), JSON.stringify({
+        pop: pop,
         generation: generation
     }))
 }
 
 helper.load = () => {
-    return JSON.parse(fs.readFileSync(path.join(global.rootDir, genomePath)))
+    return JSON.parse(fs.readFileSync(path.join(global.rootDir, popPath)))
 }
 
 module.exports = helper
