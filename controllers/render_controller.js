@@ -1,12 +1,19 @@
 const express = require("express")
 const path = require("path")
 const bodyParser = require("body-parser")
+const varImporter = require("variable-importer");
 const {TwingEnvironment, TwingLoaderFilesystem} = require('twing')
 
 let router = express.Router()
 
 let loader = new TwingLoaderFilesystem(path.join(`${global.rootDir}/public/templates`))
 let twing = new TwingEnvironment(loader)
+
+const importer = varImporter(path.join(global.rootDir, "text"), {
+    format: "yml"
+})
+
+let text = importer.import("text")
 
 router.use(bodyParser.json())
 router.use(bodyParser.urlencoded({
@@ -31,7 +38,9 @@ router.get("/svg/:file", (req, res) => {
 })
 
 router.get("/", (req, res) => {
-    twing.render("index.twig").then(output => {
+    twing.render("index.twig", {
+        text: text
+    }).then(output => {
         res.end(output)
     })
 })

@@ -13,6 +13,7 @@
     "express": "^4.17.1",
     "tonegenerator": "^0.3.2",
     "twing": "^5.0.2",
+    "variable-importer": "^1.1.1",
     "waveheader": "0.0.2"
   }
 }

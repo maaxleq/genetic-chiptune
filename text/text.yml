@@ -1,0 +1,10 @@
+title:
+  genetic: genetic
+  music: music
+header:
+  random_loop: random loop
+  from_genes: from genes
+left_menu:
+  reset: reset
+  generation: generation
+  individual: individual

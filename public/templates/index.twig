@@ -2,12 +2,52 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Genetic Music</title>
+        <title>{{ text.title.genetic | capitalize | raw}} {{ text.title.music | capitalize | raw}}</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+        <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
         <link rel="stylesheet" href="/css/style" type="text/css">
     </head>
     <body>
-        
-        
+        <div id="component_repo">
+            <div class="audio">
+                <span class="material-icons-round audio_play">play_arrow</span>
+                <span class="material-icons-round audio_pause">pause</span>
+            </div>
+            <div class="modal">
+                <div class="modal_top">
+                    <p class="modal_title">TEST</p>
+                    <span class="material-icons-round modal_close">close</span>
+                </div>
+                <div class="modal_body"></div>
+            </div>
+        </div>
+
+        <div id="mask">
+        </div>
+
+        <header>
+            <p id="title">{{ text.title.genetic | upper | raw}} {{ text.title.music | upper | raw}}</p>
+            <div id="header_buttons">
+                <p id="random_loop">{{ text.header.random_loop | upper | raw}}</p>
+                <p id="from_genes">{{ text.header.from_genes | upper | raw}}</p>
+            </div>
+        </header>
+
+        <section id="page">
+            <aside id="left_menu">
+                <div id="left_menu_top">
+                    <span id="close_left_menu" class="material-icons-round">close</span>
+                    <p id="reset">{{ text.left_menu.reset | upper | raw}}</p>
+                </div>
+            </aside>
+            <aside id="open_left_menu_container">
+                <span id="open_left_menu" class="material-icons-round">menu_open</span>
+            </aside>
+            <section id="content">
+                
+            </section>
+        </section>
+
         <script src="/js/main"></script>
     </body>
 </html>
