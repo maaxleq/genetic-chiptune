@@ -2,6 +2,7 @@ const express = require("express")
 const path = require("path")
 const evol = require(path.join(`${global.rootDir}/controllers/evol`))
 const storage = require(path.join(`${global.rootDir}/controllers/storage_helper`))
+const generator = require(path.join(`${global.rootDir}/controllers/mix_generator`))
 
 let router = express.Router()
 
@@ -15,7 +16,7 @@ router.post("/new", (req, res) => {
         res.end();
     }
     catch(e){    
-        res.status(500).end(e);
+        res.status(500).end(e.message);
     }
 })
 
@@ -32,7 +33,20 @@ router.get("/next", (req, res) => {
         }
     }
     catch(e){
-        res.status(500).end(e); 
+        res.status(500).end(e.message); 
+    }
+})
+
+router.post("/generate", (req, res) => {
+    try{
+        let genome = JSON.parse(req.body.genome);
+        let wav = generator.fromGenes(genome);
+
+        res.set("Content-Type", "audio/wav");
+        res.send(wav);
+    }
+    catch(e){
+        res.status(500).end(e.message); 
     }
 })
 
@@ -70,7 +84,7 @@ router.put("/rate", (req, res) => {
         }
     }
     catch(e){
-        res.status(500).end(e); 
+        res.status(500).end(e.message); 
     }
 })
 
