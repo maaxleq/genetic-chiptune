@@ -11,12 +11,12 @@ router.post("/new", (req, res) => {
 
     try {
         let pop = evol.generateRandomPopulation(count);
-        storage.save(pop, 1);
+        storage.save(pop, 0);
     
         res.end();
     }
     catch(e){    
-        res.status(500).end(e.message);
+        res.status(500).send(e.message);
     }
 })
 
@@ -26,33 +26,24 @@ router.get("/next", (req, res) => {
         let next = evol.getNextToEvaluate(popFile.pop);
 
         if (next == -1){
-            res.send("Population is fully evaluated");
+            res.status(500).send("Fully evaluated generation has not evolved");
         }
         else {
-            res.json(popFile.pop[next]);
+            res.json({
+                individual_no: next,
+                gen_no: popFile.generation,
+            });
         }
     }
     catch(e){
-        res.status(500).end(e.message); 
+        console.log(e);
+        res.status(500).send(e.message); 
     }
 })
 
-router.post("/generate", (req, res) => {
+router.put("/evaluate", (req, res) => {
     try{
-        let genome = JSON.parse(req.body.genome);
-        let wav = generator.fromGenes(genome);
-
-        res.set("Content-Type", "audio/wav");
-        res.send(wav);
-    }
-    catch(e){
-        res.status(500).end(e.message); 
-    }
-})
-
-router.put("/rate", (req, res) => {
-    try{
-        let n = req.body.rate_no;
+        let n = req.body.individual_no;
         let mark = req.body.mark;
 
         let popFile = storage.load();
@@ -61,30 +52,28 @@ router.put("/rate", (req, res) => {
         let next = evol.getNextToEvaluate(popFile.pop);
 
         if (next == -1){
+            if (! evol.isFullyEvaluated(popFile.pop)){
+                res.status(500).send("An individual was skipped during evaluation");
+            }
+
             newPop = evol.evolve(popFile.pop);
 
             storage.save(newPop, popFile.generation + 1);
 
             res.json({
-                individual: newPop[0],
-                individual_no: 0,
-                gen_no: popFile.generation + 1,
-                new_gen: true,
+                new_generation: true,
             });
         }
         else {
             storage.save(popFile.pop, popFile.generation);
 
             res.json({
-                individual: popFile.pop[next],
-                individual_no: next,
-                gen_no: popFile.generation,
-                new_gen: false,
+                new_generation: false,
             });
         }
     }
     catch(e){
-        res.status(500).end(e.message); 
+        res.status(500).send(e.message); 
     }
 })
 
