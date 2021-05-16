@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <title>{{ text.title.genetic | capitalize | raw}} {{ text.title.music | capitalize | raw}}</title>
-        <link rel="icon" href="/svg/dna"/>
+        <link rel="icon" href="/svg/dna_white"/>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
         <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
         <link rel="stylesheet" href="/css/style" type="text/css">
@@ -38,7 +38,10 @@
         </div>
 
         <header>
-            <p id="title">{{ text.title.genetic | upper | raw}} {{ text.title.music | upper | raw}}</p>
+            <div id="header_title">
+                <img id="title_dna" src="/svg/dna_white">
+                <p id="title">{{ text.title.genetic | upper | raw}} {{ text.title.music | upper | raw}}</p>
+            </div>
             <div id="header_buttons">
                 <p id="random_loop">{{ text.header.random_loop | upper | raw}}</p>
                 <p id="from_genes">{{ text.header.from_genes | upper | raw}}</p>

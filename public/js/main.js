@@ -497,5 +497,8 @@ updateIndividual(mainAudio, jsonDisplay, evalBar);
 window.addEventListener("load", () => {
     setTimeout(() => {
         document.querySelector("#loading_mask").classList.remove("show");
+        setTimeout(() => {
+            document.querySelector("#loading_dna").classList.add("stopped");
+        }, 200);
     }, 250);
 })

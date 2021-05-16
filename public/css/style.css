@@ -36,8 +36,20 @@ header p {
     margin: 0px;
 }
 
+#header_title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 #title {
     font-size: 20px;
+    margin-left: 20px;
+}
+
+#title_dna {
+    width: 30px;
+    height: 30px;
 }
 
 #header_buttons {
@@ -114,7 +126,7 @@ header p {
     transition: opacity 0.2s, visibility 0.2s;
 }
 
-#loading_dna {
+#loading_dna:not(.stopped) {
     width: 25%;
     animation: dna_rotate 1s linear infinite;
 }
