@@ -159,6 +159,32 @@ const ResetModalComponent = repo => {
     return component;
 }
 
+const RandomModalComponent = repo => {
+    let component = ModalComponent(repo);
+
+    component.elem.querySelector(".modal_body").classList.add("random_modal_body");
+
+    component.setTitle(text.randomModal.title);
+
+    let message = document.createElement("p");
+    message.textContent = text.randomModal.message;
+    component.append(message);
+
+    let button = document.createElement("button");
+    button.textContent = text.randomModal.generate;
+    button.style.marginTop = "100px";
+
+    let buttonContainer = document.createElement("div");
+    buttonContainer.style.display = "flex";
+    buttonContainer.style.justifyContent = "flex-start";
+    buttonContainer.style.width = "100%";
+    buttonContainer.append(button);
+
+    component.append(buttonContainer);
+
+    return component;
+}
+
 const JSONDisplayComponent = (repo, json = null) => {
     let component = Component(repo, "json_display");
 
@@ -446,6 +472,12 @@ document.querySelector("#reset").addEventListener("click", () => {
     resetModal.show();
 });
 
+let randomModal = RandomModalComponent(repo);
+randomModal.appendTo(document.body);
+document.querySelector("#random_loop").addEventListener("click", () => {
+    randomModal.show();
+});
+
 let jsonDisplay = JSONDisplayComponent(repo);
 jsonDisplay.appendTo(document.querySelector("#left_menu_genome"));
 
@@ -461,3 +493,9 @@ resetModal.setFormSubmittedFunction(() => {
 });
 
 updateIndividual(mainAudio, jsonDisplay, evalBar);
+
+window.addEventListener("load", () => {
+    setTimeout(() => {
+        document.querySelector("#loading_mask").classList.remove("show");
+    }, 250);
+})

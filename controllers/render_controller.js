@@ -37,6 +37,10 @@ router.get("/svg/:file", (req, res) => {
     res.sendFile(path.join(`${global.rootDir}/public/img/${req.params.file}.svg`))
 })
 
+router.get("/png/:file", (req, res) => {
+    res.sendFile(path.join(`${global.rootDir}/public/img/${req.params.file}.png`))
+})
+
 router.get("/", (req, res) => {
     twing.render("index.twig", {
         text: text

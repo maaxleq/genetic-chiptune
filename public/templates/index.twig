@@ -3,11 +3,13 @@
     <head>
         <meta charset="utf-8">
         <title>{{ text.title.genetic | capitalize | raw}} {{ text.title.music | capitalize | raw}}</title>
+        <link rel="icon" href="/svg/dna"/>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
         <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
         <link rel="stylesheet" href="/css/style" type="text/css">
     </head>
     <body>
+        <span class="material-icons fake_elem">circle</span>
         <div id="component_repo">
             <div class="audio">
                 <span class="material-icons-round audio_play">play_arrow</span>
@@ -29,6 +31,10 @@
         </div>
 
         <div id="mask">
+        </div>
+
+        <div id="loading_mask" class="show">
+            <img id="loading_dna" src="/png/dna">
         </div>
 
         <header>
@@ -70,6 +76,11 @@
                     message: "{{ text.reset_modal.message | capitalize | raw}}",
                     howMany: "{{ text.reset_modal.how_many | capitalize | raw}}",
                     ok: "{{ text.reset_modal.ok | upper | raw}}",
+                },
+                randomModal: {
+                    title: "{{ text.random_modal.title | upper | raw}}",
+                    message: "{{ text.random_modal.message | capitalize | raw}}",
+                    generate: "{{ text.random_modal.generate | upper | raw}}",
                 }
             }    
         </script>
