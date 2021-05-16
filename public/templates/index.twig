@@ -13,12 +13,18 @@
                 <span class="material-icons-round audio_play">play_arrow</span>
                 <span class="material-icons-round audio_pause">pause</span>
             </div>
-            <div class="modal">
-                <div class="modal_top">
-                    <p class="modal_title">TEST</p>
-                    <span class="material-icons-round modal_close">close</span>
+            <div class="modal_container">
+                <div class="modal">
+                    <div class="modal_top">
+                        <p class="modal_title"></p>
+                        <span class="material-icons-round modal_close">close</span>
+                    </div>
+                    <div class="modal_body"></div>
                 </div>
-                <div class="modal_body"></div>
+            </div>
+            <div class="json_display">
+            </div>
+            <div class="eval_bar">
             </div>
         </div>
 
@@ -39,6 +45,15 @@
                     <span id="close_left_menu" class="material-icons-round">close</span>
                     <p id="reset">{{ text.left_menu.reset | upper | raw}}</p>
                 </div>
+                <div id="left_menu_info">
+                    <p class="left_menu_label">{{ text.left_menu.generation | upper | raw}}</p>
+                    <p id="gen_no"></p>
+                    <p class="left_menu_label">{{ text.left_menu.individual | upper | raw}}</p>
+                    <p><span id="individual_no"></span> / <span id="out_of"></span></p>
+                </div>
+                <div id="left_menu_genome">
+                    <p class="left_menu_label">{{ text.left_menu.genome | upper | raw}}</p>
+                </div>
             </aside>
             <aside id="open_left_menu_container">
                 <span id="open_left_menu" class="material-icons-round">menu_open</span>
@@ -48,6 +63,16 @@
             </section>
         </section>
 
+        <script>
+            const text = {
+                resetModal: {
+                    title: "{{ text.reset_modal.title | upper | raw}}",
+                    message: "{{ text.reset_modal.message | capitalize | raw}}",
+                    howMany: "{{ text.reset_modal.how_many | capitalize | raw}}",
+                    ok: "{{ text.reset_modal.ok | upper | raw}}",
+                }
+            }    
+        </script>
         <script src="/js/main"></script>
     </body>
 </html>

@@ -11,7 +11,7 @@ router.post("/new", (req, res) => {
 
     try {
         let pop = evol.generateRandomPopulation(count);
-        storage.save(pop, 0);
+        storage.save(pop, 1);
     
         res.end();
     }
@@ -31,12 +31,13 @@ router.get("/next", (req, res) => {
         else {
             res.json({
                 individual_no: next,
+                pop_count: popFile.pop.length,
                 gen_no: popFile.generation,
+                genes: popFile.pop[next]
             });
         }
     }
     catch(e){
-        console.log(e);
         res.status(500).send(e.message); 
     }
 })

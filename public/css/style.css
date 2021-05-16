@@ -93,27 +93,38 @@ header p {
     z-index: 2;
     transition: width 0.2s;
     color: black;
+}
+
+#left_menu > * {
     padding: 15px 15px;
+}
+
+#left_menu > *:not(:last-child) {
+    border-bottom: 1px solid #00000020  ;
 }
 
 #left_menu.retracted {
     width: 0px;
-    transition: width 0.2s, padding 0.2s;
-    padding: 15px 0px;
+    transition: width 0.2s;
+}
+
+.left_menu_label {
+    color: #000000A0;
+    margin-bottom: 12px;
 }
 
 #close_left_menu {
     font-size: 40px;
     cursor: pointer;
-    margin: -8px 0px 0px -8px;
+    margin: -8px -8px -8px -8px;
 }
 
 #close_left_menu:hover {
-    opacity: 75%;
+    opacity: 60%;
 }
 
 #open_left_menu_container {
-    width: 40px;
+    width: 50px;
     height: 100%;
     z-index: 1;
     position: absolute;
@@ -121,16 +132,16 @@ header p {
     left: 0px;
     color: black;
     padding: 15px;
-    margin: -8px 0px 0px -8px;
 }
 
 #open_left_menu {
     font-size: 40px;
     cursor: pointer;
+    margin: -8px -8px -8px -8px;
 }
 
 #open_left_menu:hover {
-    opacity: 75%;
+    opacity: 60%;
 }
 
 #left_menu_top {
@@ -146,13 +157,48 @@ header p {
 }
 
 #reset:hover {
-    opacity: 75%;
+    opacity: 60%;
 }
 
 #content {
     flex-grow: 1;
     background-color: white;
     z-index: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+input {
+    border: none;
+    border-bottom: 2px solid #212121;
+    background-color: #eeeeee;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    font-size: 16px;
+    padding: 10px;
+    outline: none;
+}
+
+input:not(:valid) {
+    border-bottom: 2px solid #b71c1c;
+    color: #b71c1c;
+}
+
+button {
+    border: none;
+    background-color: transparent;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+button:hover {
+    opacity: 60%;
+}
+
+p {
+    margin-top: 0px;
 }
 
 /* AUDIO */
@@ -165,7 +211,7 @@ header p {
 }
 
 .audio span:hover {
-    opacity: 75%;
+    opacity: 60%;
     transition: opacity 0.2s;
 }
 
@@ -177,14 +223,25 @@ header p {
 
 /* MODAL */
 
+.modal_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    visibility: hidden;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
 .modal {
-    height: 50%;
-    width: 50%;
+    height: min-content;
+    max-width: 800px;
+    min-width: 600px;
     visibility: hidden;
     position: absolute;
     z-index: 999;
-    left: 25%;
-    top: 25%;
     opacity: 0%;
     transition: opacity 0.2s, visibility 0.2s;
     background-color: white;
@@ -218,7 +275,63 @@ header p {
 }
 
 .modal_close:hover {
-    opacity: 75%;
+    opacity: 60%;
+}
+
+.modal_body {
+    padding: 20px 0px;
 }
 
 /* END MODAL */
+
+/* RESET MODAL */
+
+.reset_modal_body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.reset_modal_body form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: start;
+}
+
+/* END RESET MODAL */
+
+/* JSON DISPLAY */
+
+.json_display {
+    margin-left: -20px;
+}
+
+.json_display_elem {
+    margin-left: 20px;
+    margin-top: 4px;
+}
+
+/* END JSON DISPLAY */
+
+/* EVAL BAR */
+
+.eval_bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.eval_bar_point {
+    font-size: 50px;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.eval_bar_point.material-icons {
+    opacity: 60%;
+}
+
+/* END EVAL BAR */

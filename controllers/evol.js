@@ -205,6 +205,10 @@ evol.evolve = (pop) => {
 
     pop = sortPopulation(pop)
 
+    for (let i = 0; i < 4; i++){
+        pop[i].mark = null;
+    }
+
     newPop.push(pop[0])
     
     for (let i = 0; i < 4; i++){

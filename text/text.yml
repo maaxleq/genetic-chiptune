@@ -8,3 +8,9 @@ left_menu:
   reset: reset
   generation: generation
   individual: individual
+  genome: genome
+reset_modal:
+  title: reset
+  message: you are about to create a new evolution.
+  how_many: how many individuals per generation ?
+  ok: ok
