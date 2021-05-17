@@ -83,7 +83,13 @@
                 randomModal: {
                     title: "{{ text.random_modal.title | upper | raw}}",
                     message: "{{ text.random_modal.message | capitalize | raw}}",
-                    generate: "{{ text.random_modal.generate | upper | raw}}",
+                    regenerate: "{{ text.random_modal.regenerate | upper | raw}}",
+                },
+                genesModal: {
+                    title: "{{ text.genes_modal.title | upper | raw}}",
+                    message: "{{ text.genes_modal.message | capitalize | raw}}",
+                    generate: "{{ text.genes_modal.generate | upper | raw}}",
+                    putYourJSON: "{{ text.genes_modal.put_your_json | capitalize | raw}}",
                 }
             }    
         </script>

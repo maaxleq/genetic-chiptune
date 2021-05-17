@@ -38,6 +38,8 @@ const AudioComponent = (repo, url) => {
         component.audio = new Audio(url);
     }
 
+    component.disabed = false;
+
     component.isPlaying = () => ! component.audio.paused;
     component.play = () => {
         component.audio.play();
@@ -50,14 +52,24 @@ const AudioComponent = (repo, url) => {
         component.elem.querySelector(".audio_play").classList.remove("hidden");
     };
     component.setSrc = url => component.audio.src = url;
+    component.disable = () => {
+        component.elem.classList.add("disabled");
+        component.disabled = true;
+    }
+    component.enable = () => {
+        component.elem.classList.remove("disabled");
+        component.disabled = false;
+    }
 
     component.audio.loop = true;
     component.elem.addEventListener("click", () => {
-        if (component.isPlaying()){
-            component.pause();
-        }
-        else {
-            component.play();
+        if (! component.disabled){
+            if (component.isPlaying()){
+                component.pause();
+            }
+            else {
+                component.play();
+            }
         }
     });
     component.elem.querySelector(".audio_pause").classList.add("hidden");
@@ -171,8 +183,26 @@ const RandomModalComponent = repo => {
     component.append(message);
 
     let button = document.createElement("button");
-    button.textContent = text.randomModal.generate;
-    button.style.marginTop = "100px";
+    button.textContent = text.randomModal.regenerate;
+    button.style.marginTop = "60px";
+
+    let randomAudio = AudioComponent(repo);
+    randomAudio.elem.classList.add("smaller");
+
+    fetchRandomMix()
+        .then(blob => {
+            let url = URL.createObjectURL(blob);
+            randomAudio.setSrc(url);
+        })
+        .catch(err => {
+            console.log(err);
+    });
+
+    let audioContainer = document.createElement("div");
+    audioContainer.style.display = "flex";
+    audioContainer.style.justifyContent = "center";
+    audioContainer.style.width = "100%";
+    audioContainer.append(randomAudio.elem);
 
     let buttonContainer = document.createElement("div");
     buttonContainer.style.display = "flex";
@@ -180,7 +210,92 @@ const RandomModalComponent = repo => {
     buttonContainer.style.width = "100%";
     buttonContainer.append(button);
 
+    component.append(audioContainer);
     component.append(buttonContainer);
+
+    button.addEventListener("click", () => {
+        randomAudio.pause();
+        fetchRandomMix()
+        .then(blob => {
+            let url = URL.createObjectURL(blob);
+            randomAudio.setSrc(url);
+        })
+        .catch(err => {
+            console.log(err);
+        });
+    });
+
+    return component;
+}
+
+const GenesModalComponent = repo => {
+    let component = ModalComponent(repo);
+
+    component.elem.querySelector(".modal_body").classList.add("genes_modal_body");
+
+    component.setTitle(text.genesModal.title);
+
+    let message = document.createElement("p");
+    message.textContent = text.genesModal.message;
+    component.append(message);
+
+    let button = document.createElement("button");
+    button.textContent = text.genesModal.generate;
+    button.style.marginTop = "60px";
+
+    let genesAudio = AudioComponent(repo);
+    genesAudio.elem.classList.add("smaller");
+    genesAudio.disable();
+
+    let textArea = document.createElement("textarea");
+    textArea.style.width = "60%";
+    textArea.style.height = "400px";
+    textArea.setAttribute("placeholder", text.genesModal.putYourJSON);
+    textArea.addEventListener("keyup", () => {
+        textArea.classList.remove("invalid");
+    });
+
+    let container = document.createElement("div");
+    container.style.display = "flex";
+    container.style.justifyContent = "flex-start";
+    container.style.alignItems = "center";
+    container.style.width = "100%";
+    container.append(textArea);
+    container.append(genesAudio.elem);
+
+    let buttonContainer = document.createElement("div");
+    buttonContainer.style.display = "flex";
+    buttonContainer.style.justifyContent = "flex-start";
+    buttonContainer.style.width = "100%";
+    buttonContainer.append(button);
+
+    component.append(container);
+    component.append(buttonContainer);
+
+    button.addEventListener("click", () => {
+        genesAudio.pause();
+        let genome = textArea.value;
+        try {
+            JSON.parse(genome);
+
+            generateFromGenes(genome)
+            .then(blob => {
+                let url = URL.createObjectURL(blob);
+                genesAudio.setSrc(url);
+                genesAudio.enable();
+            })
+            .catch(err => {
+                genesAudio.disable();
+                textArea.classList.add("invalid");
+                console.log(err);
+            })
+        }
+        catch(e){
+            genesAudio.disable();
+            textArea.classList.add("invalid");
+            console.log(e);
+        }
+    });
 
     return component;
 }
@@ -316,6 +431,35 @@ const EvalBarComponent = (repo, maxMark) => {
 
 let currentIndividual;
 
+const generateFromGenes = (genome) => {
+    return new Promise((resolve, reject) => {
+        fetch("/mix/generate_from_genes", {
+            method: "POST",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                genome: genome
+            })
+        })
+        .then(res => {
+            if (res.ok){
+                return res.blob();
+            }
+            else {
+                reject(res.statusText);
+            }
+        })
+        .then(blob => {
+            resolve(blob);
+        })
+        .catch(err => {
+            reject(err);
+        });
+    });
+}
+
 const fetchRandomMix = () => {
     return new Promise((resolve, reject) => {
         fetch("/mix/random")
@@ -438,6 +582,7 @@ const updateIndividual = (audio, jsonDisplay, evalBar) => {
         jsonDisplay.setJSON(data.genes);
 
         evalBar.setClickFunction(() => {
+            audio.pause();
             evaluate(currentIndividual, evalBar.getMark())
             .then(text => {
                 evalBar.resetPoints();
@@ -478,6 +623,12 @@ document.querySelector("#random_loop").addEventListener("click", () => {
     randomModal.show();
 });
 
+let genesModal = GenesModalComponent(repo);
+genesModal.appendTo(document.body);
+document.querySelector("#from_genes").addEventListener("click", () => {
+    genesModal.show();
+});
+
 let jsonDisplay = JSONDisplayComponent(repo);
 jsonDisplay.appendTo(document.querySelector("#left_menu_genome"));
 
@@ -501,4 +652,4 @@ window.addEventListener("load", () => {
             document.querySelector("#loading_dna").classList.add("stopped");
         }, 200);
     }, 250);
-})
+});

@@ -230,7 +230,7 @@ header p {
     align-items: center;
 }
 
-input {
+input, textarea {
     border: none;
     border-bottom: 2px solid #212121;
     background-color: #eeeeee;
@@ -241,7 +241,7 @@ input {
     outline: none;
 }
 
-input:not(:valid) {
+input:not(:valid), textarea.invalid {
     border-bottom: 2px solid #b71c1c;
     color: #b71c1c;
 }
@@ -264,19 +264,35 @@ p {
 /* AUDIO */
 
 .audio {
-    height: 400px;
-    width: 400px;
-    cursor: pointer;
+    height: 300px;
+    width: 300px;
     transition: opacity 0.2s;
 }
 
-.audio span:hover {
+.audio:not(.disabled) {
+    cursor: pointer;
+}
+
+.audio.disabled span {
+    opacity: 60%;
+}
+
+.audio.smaller {
+    height: 200px;
+    width: 200px;
+}
+
+.audio:not(.disabled) span:hover {
     opacity: 60%;
     transition: opacity 0.2s;
 }
 
 .audio span {
-    font-size: 400px;
+    font-size: 300px;
+}
+
+.audio.smaller span {
+    font-size: 200px;
 }
 
 /* END AUDIO */
@@ -299,6 +315,9 @@ p {
     height: min-content;
     max-width: 800px;
     min-width: 600px;
+    max-height: 90%;
+    overflow-y: auto;
+    overflow-x: hidden;
     visibility: hidden;
     position: absolute;
     z-index: 999;

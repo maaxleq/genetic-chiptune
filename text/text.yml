@@ -16,5 +16,10 @@ reset_modal:
   ok: ok
 random_modal:
   title: random loop
-  message: you can generate a loop from random genes
+  message: you can generate a loop from random genes.
+  regenerate: regenerate
+genes_modal:
+  title: from genes
+  message: you can generate a loop from a JSON representing a genome.
   generate: generate
+  put_your_json: put your JSON here
