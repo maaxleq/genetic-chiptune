@@ -10,7 +10,7 @@ const shapes = {
 const baseFreqs = [16.35, 18.36, 20.6, 21.83, 24.5, 27.5, 30.87]
 const rythms = ["d","tt","tff","fft","yyy","ffff","Tf","fT","t2","ff2","2t","2ff","1"]
 
-const mixLengthInSecs = 5
+const mixLengthInSecs = 10
 
 let generator = {}
 
@@ -152,6 +152,22 @@ function genesCorrect(genes){
             &&  geneIsBetween(genes.drums.baseNote1, limits.baseNote)
             &&  geneIsBetween(genes.melody.baseNote2, limits.baseNote)
             &&  geneIsBetween(genes.drums.baseNote2, limits.baseNote)
+            &&  geneIsBetween(genes.melody.rythm3, limits.rythm)
+            &&  geneIsBetween(genes.drums.rythm3, limits.rythm)
+            &&  geneIsBetween(genes.melody.rythm4, limits.rythm)
+            &&  geneIsBetween(genes.drums.rythm4, limits.rythm)
+            &&  geneIsBetween(genes.melody.deltaNotes3, limits.deltaNotes)
+            &&  geneIsBetween(genes.drums.deltaNotes3, limits.deltaNotes)
+            &&  geneIsBetween(genes.melody.deltaNotes4, limits.deltaNotes)
+            &&  geneIsBetween(genes.drums.deltaNotes4, limits.deltaNotes)
+            &&  geneIsBetween(genes.melody.scheme3, limits.scheme)
+            &&  geneIsBetween(genes.drums.scheme3, limits.scheme)
+            &&  geneIsBetween(genes.melody.scheme4, limits.scheme)
+            &&  geneIsBetween(genes.drums.scheme4, limits.scheme)
+            &&  geneIsBetween(genes.melody.baseNote3, limits.baseNote)
+            &&  geneIsBetween(genes.drums.baseNote3, limits.baseNote)
+            &&  geneIsBetween(genes.melody.baseNote4, limits.baseNote)
+            &&  geneIsBetween(genes.drums.baseNote4, limits.baseNote)
 }
 
 function computeCyclesCount(tempo){
@@ -238,6 +254,46 @@ function generateTrackCycle(trackGenes, tempo, shape, beats = false){
         }
         else if (trackGenes.scheme2 == 2){
             delta = trackGenes.deltaNotes2
+        }
+
+        currentNote = computeNextNote(currentNote, delta)
+    }
+
+    //Third beat
+    currentNote = {
+        octave: trackGenes.baseOctave,
+        note: trackGenes.baseNote3
+    }
+
+    for (symbol of rythms[trackGenes.rythm3]){
+        cycle = combineSamplesSerial([cycle, generateNote(currentNote, symbol, tempo, shape, beats)])
+
+        let delta = 0
+        if (trackGenes.scheme3 == 0){
+            delta = - trackGenes.deltaNotes3
+        }
+        else if (trackGenes.scheme3 == 2){
+            delta = trackGenes.deltaNotes3
+        }
+
+        currentNote = computeNextNote(currentNote, delta)
+    }
+
+    //Fourth beat
+    currentNote = {
+        octave: trackGenes.baseOctave,
+        note: trackGenes.baseNote4
+    }
+
+    for (symbol of rythms[trackGenes.rythm4]){
+        cycle = combineSamplesSerial([cycle, generateNote(currentNote, symbol, tempo, shape, beats)])
+
+        let delta = 0
+        if (trackGenes.scheme4 == 0){
+            delta = - trackGenes.deltaNotes4
+        }
+        else if (trackGenes.scheme4 == 2){
+            delta = trackGenes.deltaNotes4
         }
 
         currentNote = computeNextNote(currentNote, delta)
