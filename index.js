@@ -5,11 +5,13 @@ const http = require("http")
 const bodyParser = require("body-parser")
 const multer = require("multer")
 
+require("dotenv").config();
+
 const upload = multer()
 const appRouter = require("./controllers/app_router")
 
-const host = "0.0.0.0"
-const port = 8080
+const host = process.env.HTTP_HOST
+const port = process.env.HTTP_PORT
 
 let app = express()
 
