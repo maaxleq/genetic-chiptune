@@ -38,8 +38,10 @@ const AudioComponent = (repo, url) => {
         component.audio = new Audio(url);
     }
 
+    component.genome = null;
     component.disabed = false;
 
+    component.setGenome = genome => component.genome = genome;
     component.isPlaying = () => ! component.audio.paused;
     component.play = () => {
         component.audio.play();
@@ -62,16 +64,20 @@ const AudioComponent = (repo, url) => {
     }
 
     component.audio.loop = true;
-    component.elem.addEventListener("click", () => {
-        if (! component.disabled){
-            if (component.isPlaying()){
-                component.pause();
+    
+    component.elem.querySelectorAll(".audio_play, .audio_pause").forEach(elem => {
+        elem.addEventListener("click", () => {
+            if (! component.disabled){
+                if (component.isPlaying()){
+                    component.pause();
+                }
+                else {
+                    component.play();
+                }
             }
-            else {
-                component.play();
-            }
-        }
+        });
     });
+
     component.elem.querySelector(".audio_pause").classList.add("hidden");
 
     return component;
@@ -188,6 +194,7 @@ const RandomModalComponent = repo => {
 
     let randomAudio = AudioComponent(repo);
     randomAudio.elem.classList.add("smaller");
+    randomAudio.elem.style.margin = "50px 0px";
 
     fetchRandomMix()
         .then(blob => {
@@ -232,6 +239,7 @@ const GenesModalComponent = repo => {
     let component = ModalComponent(repo);
 
     component.elem.querySelector(".modal_body").classList.add("genes_modal_body");
+    component.elem.style.minWidth = "700px";
 
     component.setTitle(text.genesModal.title);
 
@@ -248,7 +256,8 @@ const GenesModalComponent = repo => {
     genesAudio.disable();
 
     let textArea = document.createElement("textarea");
-    textArea.style.width = "60%";
+    textArea.style.width = "50%";
+    textArea.style.maxWidth = "50%";
     textArea.style.height = "400px";
     textArea.setAttribute("placeholder", text.genesModal.putYourJSON);
     textArea.addEventListener("keyup", () => {
@@ -633,7 +642,7 @@ let jsonDisplay = JSONDisplayComponent(repo);
 jsonDisplay.appendTo(document.querySelector("#left_menu_genome"));
 
 let mainAudio = AudioComponent(repo);
-mainAudio.elem.style.marginTop = "-75px";
+mainAudio.elem.style.marginBottom = "100px";
 mainAudio.appendTo(document.querySelector("#content"));
 
 let evalBar = EvalBarComponent(repo, 10);

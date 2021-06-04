@@ -2,6 +2,7 @@ title:
   genetic: genetic
   chiptune: chiptune
 header:
+  about: about
   random_loop: random loop
   from_genes: from genes
 left_menu:
