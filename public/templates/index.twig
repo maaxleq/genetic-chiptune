@@ -5,6 +5,8 @@
         <title>{{ text.title.genetic | capitalize | raw}} {{ text.title.chiptune | capitalize | raw}}</title>
         <link rel="icon" href="/svg/dna_white"/>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
         <link rel="stylesheet" href="/css/style" type="text/css">
     </head>
@@ -12,18 +14,15 @@
         <span class="material-icons fake_elem">circle</span>
         <div id="component_repo">
             <div class="audio">
-                <span class="material-icons-round audio_play">play_arrow</span>
-                <span class="material-icons-round audio_pause">pause</span>
-                <div class="audio_download">
-                    <p class="audio_download_wav"><span class="material-icons-outlined">file_download</span> <span>JSON</span></p>
-                    <p class="audio_download_json"><span class="material-icons-outlined">file_download</span> <span>WAV</span></p>
-                </div>
+                <span class="material-icons audio_play">play_arrow</span>
+                <span class="material-icons audio_pause">pause</span>
+                <span class="material-icons-outlined audio_menu">menu</span>
             </div>
             <div class="modal_container">
                 <div class="modal">
                     <div class="modal_top">
                         <p class="modal_title"></p>
-                        <span class="material-icons-round modal_close">close</span>
+                        <span class="material-icons modal_close">close</span>
                     </div>
                     <div class="modal_body"></div>
                 </div>
@@ -55,7 +54,7 @@
         <section id="page">
             <aside id="left_menu">
                 <div id="left_menu_top">
-                    <span id="close_left_menu" class="material-icons-round">close</span>
+                    <span id="close_left_menu" class="material-icons">close</span>
                     <p id="reset">{{ text.left_menu.reset | upper | raw}}</p>
                 </div>
                 <div id="left_menu_info">
@@ -69,7 +68,7 @@
                 </div>
             </aside>
             <aside id="open_left_menu_container">
-                <span id="open_left_menu" class="material-icons-round">menu_open</span>
+                <span id="open_left_menu" class="material-icons">menu_open</span>
             </aside>
             <section id="content">
                 

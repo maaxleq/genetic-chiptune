@@ -373,7 +373,7 @@ const EvalBarComponent = (repo, maxMark) => {
         point.classList.add("material-icons-outlined");
         point.classList.add("eval_bar_point");
         point.setAttribute("data-point", i + 1);
-        point.textContent = "circle";
+        point.textContent = "stop";
         component.elem.appendChild(point);
     }
 
