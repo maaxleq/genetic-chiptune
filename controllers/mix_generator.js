@@ -171,7 +171,7 @@ function genesCorrect(genes){
 }
 
 function computeCyclesCount(tempo){
-    let cycleLength = 120 / tempo
+    let cycleLength = 240 / tempo
 
     return Math.ceil(mixLengthInSecs / cycleLength)
 }

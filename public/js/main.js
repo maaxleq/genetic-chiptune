@@ -38,6 +38,8 @@ const AudioComponent = (repo, url) => {
         component.audio = new Audio(url);
     }
 
+    component.elem.querySelector(".audio_dl_link").setAttribute("href", url);
+
     component.genome = null;
     component.disabed = false;
 
@@ -53,14 +55,19 @@ const AudioComponent = (repo, url) => {
         component.elem.querySelector(".audio_pause").classList.add("hidden");
         component.elem.querySelector(".audio_play").classList.remove("hidden");
     };
-    component.setSrc = url => component.audio.src = url;
+    component.setSrc = url => {
+        component.audio.src = url;
+        component.elem.querySelector(".audio_dl_link").setAttribute("href", url);
+    }
     component.disable = () => {
         component.elem.classList.add("disabled");
         component.disabled = true;
+        component.elem.querySelector(".audio_dl_link").removeAttribute("href");
     }
     component.enable = () => {
         component.elem.classList.remove("disabled");
         component.disabled = false;
+        component.elem.querySelector(".audio_dl_link").setAttribute("href", component.audio.src);
     }
 
     component.audio.loop = true;

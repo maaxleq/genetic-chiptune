@@ -270,40 +270,32 @@ p {
     display: flex;
 }
 
-.audio_download {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: flex-start;
+.audio_dl {
+    font-size: 50px;
 }
 
-.audio_download p {
-    font-size: 16px;
-    white-space: nowrap;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.audio_download p:last-child {
-    margin: 0px;
-}
-
-.audio_download span:first-child {
-    font-size: 24px;
-    margin-right: 10px;
+.audio:not(.disabled) .audio_dl_link {
+    cursor: pointer;
+    color: black;
 }
 
 .audio > span {
     line-height: 55%;
+    font-size: 300px;
 }
 
-.audio:not(.disabled) {
+.audio:not(.disabled) > *:not(.audio_dl_container){
     cursor: pointer;
 }
 
 .audio.disabled span {
     opacity: 60%;
+}
+
+.audio_dl_container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
 }
 
 .audio.smaller {
@@ -312,16 +304,12 @@ p {
     margin: 50px 0;
 }
 
-.audio:not(.disabled) > span:hover {
+.audio:not(.disabled) span:hover {
     opacity: 60%;
     transition: opacity 0.2s;
 }
 
-.audio >  span {
-    font-size: 300px;
-}
-
-.audio.smaller >  span {
+.audio.smaller > span {
     font-size: 200px;
 }
 
